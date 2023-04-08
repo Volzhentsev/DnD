@@ -4,89 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer src="./js/app.js"></script>
     <title>Trello</title>
 </head>
 <body>
-    
-    <div class="app">
-        <div class="boards">
-            <div class="boards__item todo">
-                <span class="title">TO DO</span>
-                <div class="list">
-                    <!-- <div class="list__item" draggable="true">
-                        <span class="list__item-text">Welcome to TRELLO!</span>
-                        <span class="change">✎</span>
-                        <span class="save">✔</span>
-                        <span class="delete">✖</span>
-                    </div> -->
-                    
-                </div>
-
-                <div class="form">
-                    <textarea class="textarea" placeholder="Enter a title for this card..."></textarea>
-
-                    <div class="buttons">
-                        <button class="add__item-btn">ADD CARD</button>
-                        <button class="cancel__item-btn">CANCEL</button>
-                    </div>
-                </div>
-
-                <div class="add__btn">+ ADD ANOTHER CARD</div>
-
-            </div>
-            <div class="boards__item inprogress">
-                <span class="title">IN PROGRESS</span>
-                <div class="list">
-                    <!-- <div class="list__item" draggable="true">
-                        <span class="list__item-text">Try dragging cards anywhere.</span>
-                        <span class="change">✎</span>
-                        <span class="save">✔</span>
-                        <span class="delete">✖</span>
-                    </div> -->
-                    
-                </div>
-
-                <div class="form">
-                    <textarea class="textarea" placeholder="Enter a title for this card..."></textarea>
-
-                    <div class="buttons">
-                        <button class="add__item-btn">ADD CARD</button>
-                        <button class="cancel__item-btn">CANCEL</button>
-                    </div>
-                </div>
-
-                <div class="add__btn">+ ADD ANOTHER CARD</div>
-
-            </div>
-            <div class="boards__item done">
-                <span class="title">DONE</span>
-                <div class="list">
-                    <!-- <div class="list__item" draggable="true">
-                        <span class="list__item-text">Make as many lists as you need!</span>
-                        <span class="change">✎</span>
-                        <span class="save">✔</span>
-                        <span class="delete">✖</span>
-                    </div> -->
-                    
-                </div>
-
-                <div class="form">
-                    <textarea class="textarea" placeholder="Enter a title for this card..."></textarea>
-
-                    <div class="buttons">
-                        <button class="add__item-btn">ADD CARD</button>
-                        <button class="cancel__item-btn">CANCEL</button>
-                    </div>
-                </div>
-
-                <div class="add__btn">+ ADD ANOTHER CARD</div>
-
+<div class="table">    
+    <div class="column todo">
+        <div class="head">TODO</div>
+        <div class="footer">+ Add another card</div>
+        <div class="add_card fog">
+            <textarea class="card_text" placeholder="Enter a title for this card..."></textarea>
+            <div class = "button_block">
+                <button class="add_btn">Add Card</button>
+                <div class="add_cross">&#10006;</div>
             </div>
         </div>
     </div>
 
-
-    <script src="js/app.js"></script>
+    <div class="column inprogress">
+        <div class="head">IN PROGRESS</div>
+        <div class="footer">+ Add another card</div>
+        <div class="add_card fog">
+            <textarea class="card_text" placeholder="Enter a title for this card..."></textarea>
+            <div class = "button_block">
+                <button class="add_btn">Add Card</button>
+                <div class="add_cross">&#10006;</div>
+            </div>
+        </div>
+    </div>
+    <div class="column done">
+        <div class="head">DONE</div>
+        <div class="footer">+ Add another card</div>
+        <div class="add_card fog">
+            <textarea class="card_text" placeholder="Enter a title for this card..."></textarea>
+            <div class = "button_block">
+                <button class="add_btn">Add Card</button>
+                <div class="add_cross">&#10006;</div>
+            </div>
+        </div> 
+    </div>
+</div>
+    
 </body>
+
 </html>

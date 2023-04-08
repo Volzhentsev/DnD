@@ -1,21 +1,21 @@
-.table{
+.table {
    display: flex;
 }
 
-.column{
+.column {
    display: inline-block;
-   border: 1px solid;
+   border: 2px solid;
    width: 300px;
    min-height: 500px;
    margin-top: 0;
    margin-left: 15px;
-   background-color: #D3D3D3;
-   border-radius: 5px;
+   background-color: #acd5e8;
+   border-radius: 10px;
    position:relative;
    padding-bottom:50px;
 }
 
-.head{
+.head {
    box-sizing: border-box;
    width: 100%;
    padding-left: 10%;
@@ -24,7 +24,7 @@
    font-weight: 700;
 }
 
-.footer{
+.footer {
    padding-bottom: 5px;
    padding-left: 5px;
    position:absolute;
@@ -32,7 +32,7 @@
    cursor: pointer;
 }
 
-.card{
+.card {
    z-index: 1;
    display: flex;
    flex-wrap: wrap;
@@ -47,29 +47,29 @@
    background-color: #fcfcfc;
    padding-left: 5px;
    padding-top: 5px;
-   box-shadow: 4px 5px 0px 0px rgb(105, 105, 105);
+   box-shadow: 4px 5px 0px 0px rgb(225, 222, 222);
    cursor: grab;
 }
 
 
 
-.card:active{
+.card:active {
    cursor: grabbing;
 }
 
-.cross{
+.cross {
    box-sizing: border-box;
    position:absolute;
    right:0;
    top: 0;
    cursor: pointer;
    width: 18px;
-   background-color: rgb(216, 216, 226);
+   background-color: rgb(199, 199, 249);
    border-radius: 5px;
    text-align: center;
 }
 
-.add_card{
+.add_card {
    z-index: 999;
    width: 90%;
    display: inline-block;
@@ -77,7 +77,7 @@
    bottom:0;
 }
 
-.card_text{
+.card_text {
    
    border: none;
    width: 100%;
@@ -91,12 +91,12 @@
 
 }
 
-.button_block{
+.button_block {
    display: flex;
 }
 
-.add_btn{
-   background-color: rgb(47, 212, 47);
+.add_btn {
+   background-color: rgb(162, 212, 47);
    border: none;
    margin-left: 10px;
    margin-bottom: 7px;
@@ -104,22 +104,20 @@
    border-radius: 5px;
 }
 
-.add_btn:active{
+.add_btn:active {
    border: 2px solid;
 }
 
-.add_cross{
+.add_cross {
    padding-left: 10px;
    padding-top: 1%;
    cursor: pointer;
 }
 
-
-
-.fog{
+.fog {
    display: none;
 }
 
-.dragged{
+.dragged {
    position: absolute;
 }
