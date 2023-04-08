@@ -1,208 +1,125 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow: hidden;
- }
+.table{
+   display: flex;
+}
 
- .app {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-    padding: 50px 0;
-    background-color: rgb(127, 127, 225);  
- }
+.column{
+   display: inline-block;
+   border: 1px solid;
+   width: 300px;
+   min-height: 500px;
+   margin-top: 0;
+   margin-left: 15px;
+   background-color: #D3D3D3;
+   border-radius: 5px;
+   position:relative;
+   padding-bottom:50px;
+}
 
-
- .boards {
-    display: flex;
-    width: 100%;
-
- }
-
- .boards__item {
-    display: flex;
-    flex-direction: column;
-    align-self: baseline;
-    max-width: 250px;
-    width: 100%;
-    background-color: rgba(0,0,0,0.5);
-    margin: 0 15px;
-    padding: 10px;
-    transition:  .3s all ease;
-    border-radius: 5px;
-
- }
-
- .title {
-    padding: 5px;
-    color: #fff;
-    text-align: center;
-    font-size: 18px;
- }
-
- .list {
-    min-height: 12px;
- }
-
- .list__item {
-    background-color: #fefefe;
-    border-radius: 5px;
-    padding: 10px;
-    display: flex;
-    align-items: baseline;
-    margin: 4px 0;
-    cursor: pointer;
-    font-size: 18px;
-    outline: none;
-    border: none;
- }
-
- .list__item.hidden {
-    display: none;
- }
-
- .list__item.change {
-   min-height: 60px;
- }
-
-
-
- .list__item.change .save {
-   display: block;
- }
-
- .list__item-text {
-   max-width: 155px;
+.head{
+   box-sizing: border-box;
    width: 100%;
-   outline: none;
-   color: rgb(0, 0, 0);
-   overflow-wrap: break-word;
- }
-
-
-
-.list__item-text[contenteditable]:empty::before {
-   content: 'Введите задачу';
-   color: rgb(108, 103, 103);
-}
-.list__item-text[contenteditable]:empty:focus::before {
-   content: attr(data-focused-advice);
+   padding-left: 10%;
+   padding-top: 5%;
+   font-family: 'Arial', 'sans-serif';
+   font-weight: 700;
 }
 
-
-
-.list__item-text:empty::before {
-   content: 'Введите задачу';
-   color: rgb(108, 103, 103);;
+.footer{
+   padding-bottom: 5px;
+   padding-left: 5px;
+   position:absolute;
+   bottom:0;
+   cursor: pointer;
 }
 
-
- .change,.delete,.save{
-   color: rgb(108, 103, 103);
- }
- 
- .change{
-   margin-left: auto;
- }
-
- .delete,.save{
+.card{
+   z-index: 1;
+   display: flex;
+   flex-wrap: wrap;
+   box-sizing: border-box;
+   position:relative;
+   width: 90%;
+   border: 1px solid;
+   margin-top: 20px;
    margin-left: 5px;
- }
+   min-height: 70px;
+   border-radius: 5px;
+   background-color: #fcfcfc;
+   padding-left: 5px;
+   padding-top: 5px;
+   box-shadow: 4px 5px 0px 0px rgb(105, 105, 105);
+   cursor: grab;
+}
 
- .save{
+
+
+.card:active{
+   cursor: grabbing;
+}
+
+.cross{
+   box-sizing: border-box;
+   position:absolute;
+   right:0;
+   top: 0;
+   cursor: pointer;
+   width: 18px;
+   background-color: rgb(216, 216, 226);
+   border-radius: 5px;
+   text-align: center;
+}
+
+.add_card{
+   z-index: 999;
+   width: 90%;
+   display: inline-block;
+   position:absolute;
+   bottom:0;
+}
+
+.card_text{
+   
+   border: none;
+   width: 100%;
+   min-height: 70px;
+   margin-bottom: 10px;
+   margin-left: 5%;
+   border-radius: 5px;
+   padding-top: 0px;
+   box-sizing: border-box;
+
+
+}
+
+.button_block{
+   display: flex;
+}
+
+.add_btn{
+   background-color: rgb(47, 212, 47);
+   border: none;
+   margin-left: 10px;
+   margin-bottom: 7px;
+   height: 30px;
+   border-radius: 5px;
+}
+
+.add_btn:active{
+   border: 2px solid;
+}
+
+.add_cross{
+   padding-left: 10px;
+   padding-top: 1%;
+   cursor: pointer;
+}
+
+
+
+.fog{
    display: none;
- }
+}
 
-
- .form{
-    border-radius: 5px;
-    margin-top: auto;
-    display: none;
- }
-
- .form.active{
-    display: block;
- }
-
- .textarea{
-    resize: none;
-    /* font-size: 16px; */
-    height: 60px;
-    border-radius: 5px;
-    border: none;
-    background: rgb(255, 255, 255);
-    padding: 10px;
-    width: 100%;
- }
-
- .textarea:focus{
-    outline: none;
- }
-
- .buttons{
-    display: flex;
- }
-
- .add__item-btn{
-    background: rgb(10, 107, 29);
-    padding: 5px 10px;
-    border: none;
-    height: 35px;
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
-    margin-right: 10px;
-    width: 100%;
- }
-
- .add__item-btn.hidden{
-    display: none;
- }
-
-
- .cancel__item-btn{
-    padding: 5px 10px;
-    background: rgb(160,17,12);
-    border: none;
-    height: 35px;
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 75px;
-    margin-left: auto;
-    margin-top: 5px;
-    flex-shrink: 0;
- }
-
- .add__btn{
-    height: 30px;
-    background: rgba(155,155,155, .3);
-    border-radius: 5px;
-    margin-top: 5px;
-    display: flex;
-    /* font-size: 16px; */
-    align-items: center;
-    padding-left: 10px;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
- }
-
- .add__btn span{
-    /* font-size: 16px; */
-    margin-right: 10px;
-    color: rgb(255, 255, 255);
- }
-
- .add__btn.hidden{
-    display: none;
- }
-
+.dragged{
+   position: absolute;
+}

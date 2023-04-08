@@ -1,233 +1,160 @@
-const boards = document.querySelector('.boards');
+import Column from "./column.js";
 
-boards.querySelectorAll('.boards__item').forEach((board) => addTask(board));
+class Listener{
+    constructor(){
+        this.card = undefined;
+        this.cardParent = undefined;
+        this.columns = document.querySelector('.column');
+        this.cards = document.querySelectorAll('.card')
+        this.table = {
+        todo: new Column(document.querySelector('.todo')),
+        inprogress: new Column(document.querySelector('.inprogress')),
+        done: new Column(document.querySelector('.done')),
+        };
+    };
 
-function addTask(board) {
-  const btn = board.querySelector('.add__btn');
-  const addBtn = board.querySelector('.add__item-btn');
-  const cancelBtn = board.querySelector('.cancel__item-btn');
-  const textarea = board.querySelector('.textarea');
-  const form = board.querySelector('.form');
+    drag(){
+        const main = document.querySelector(".table");
+        let elemBelow = "";
+        let lastCard ="";
+        let dragCardSize ="";
+        let dragCard ="";
 
-  let value;
-
-  // Добавить карточку
-  btn.addEventListener('click', () => {
-    form.classList.add('active');
-    btn.classList.add('hidden');
-    addBtn.classList.add('hidden');
-
-    textarea.addEventListener('input', (e) => {
-      value = e.target.value;
-      if (value) {
-        addBtn.classList.remove('hidden');
-      } else {
-        addBtn.classList.add('hidden');
-      }
-    });
-  });
-
-  // Закрыть карточку
-  cancelBtn.addEventListener('click', clearForm);
-
-  // Очистить данные
-  function clearForm() {
-    value = '';
-    textarea.value = '';
-    form.classList.remove('active');
-    btn.classList.remove('hidden');
-  }
-
-  //
-
-  // Добавляем карточку с текстом
-  addBtn.addEventListener('click', addListItem);
-
-  function addListItem() {
-    const item = createListItem();
-    board.querySelector('.list').append(item);
-    dragNdrop();
-    clearForm();
-    operationsTask();
-  }
-
-  // Создаем карточку
-  function createListItem() {
-    const item = document.createElement('div');
-    item.classList.add('list__item');
-    item.draggable = true;
-    item.innerHTML = `
-        <span class="list__item-text">${value}</span>
-            <span class="change">✎</span>
-            <span class="save">✔</span>
-            <span class="delete">✖</span>
-        </div>`;
-
-    return item;
-  }
-
-  // Операции с карточками
-  function operationsTask() {
-    const listItem = board.querySelectorAll('.list__item');
-    listItem.forEach((item) => {
-      // const text = item.querySelector('.list__item-text');
-      item.querySelector('.delete').addEventListener('click', (e) => {
-        e.target.parentElement.remove();
-      });
-      // item.querySelector('.change').addEventListener('click', (e) => {
-      //   item.classList.add('change');
-      //   text.setAttribute('contenteditable', true);
-      // });
-      // item.querySelector('.save').addEventListener('click', (e) => {
-      //   item.classList.remove('change');
-      //   text.removeAttribute('contenteditable');
-      // });
-    });
-  }
-
-  // Перетаскивание карточек
-
-  let draggedItem = '';
-
-  function dragNdrop() {
-    const lists = document.querySelectorAll('.list');
-    const listItems = document.querySelectorAll('.list__item');
-
-    listItems.forEach((item) => {
-      item.addEventListener('dragstart', () => {
-        draggedItem = item;
-        setTimeout(() => {
-          item.classList.add('hidden');
-        }, 0);
-      });
-
-      item.addEventListener('dragend', () => {
-        draggedItem = '';
-        setTimeout(() => {
-          item.classList.remove('hidden');
-        }, 0);
-      });
-
-      lists.forEach((list) => {
-        list.addEventListener('dragover', (e) => e.preventDefault());
-
-        list.addEventListener('dragenter', function (e) {
-          e.preventDefault();
-          this.style.backgroundColor = 'rgba(0,0,0, 0.3)';
+        main.addEventListener("dragenter", (e) => {
+            if (e.target.classList.contains("column")) {
+            e.target.classList.add("drop");
+            };
+        });
+          
+        main.addEventListener("dragleave", (e) => {
+            if (e.target.classList.contains("drop")) {
+              e.target.classList.remove("drop");
+            };
         });
 
-        list.addEventListener('dragleave', function (e) {
-          e.preventDefault();
-          this.style.backgroundColor = 'rgba(0,0,0, 0)';
+        main.addEventListener("dragstart", (e) => {
+        if (e.target.classList.contains("card")) {
+            e.dataTransfer.setData("text/plain", e.target.id);
+            dragCardSize = e.target.offsetHeight;
+            dragCard = e.target;
+            setTimeout(()=>{
+                dragCard.classList.add('fog');
+        },0);
+
+            
+            }
+          });
+
+        main.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            elemBelow = e.target;
+            if (elemBelow.classList.contains("card")){
+                if(elemBelow.id != lastCard.id && lastCard !=''){
+                    lastCard.style.marginTop = '20px';
+                };
+                lastCard = e.target;
+                elemBelow.style.marginTop = `${dragCardSize+10}px`;
+
+                
+            };
         });
 
-        list.addEventListener('drop', function (e) {
-          e.preventDefault();
-          this.style.backgroundColor = 'rgba(0,0,0,0)';
-          this.append(draggedItem);
+        main.addEventListener("drop", (e) => {
+            dragCard.classList.remove('fog')
+            const card = main.querySelector(`[id="${e.dataTransfer.getData("text/plain")}"]`);
+            if (elemBelow === card) {
+                return;
+            };
+            if (elemBelow.classList.contains("card")) {
+                const center = elemBelow.getBoundingClientRect().y + elemBelow.getBoundingClientRect().height / 2;
+                if (e.clientY > center) {
+                    if (elemBelow.nextElementSibling !== null) {
+                        elemBelow = elemBelow.nextElementSibling;
+                    } else{
+                        return;
+                    }
+                }
+                elemBelow.parentElement.insertBefore(card, elemBelow);
+            }
+            if (e.target.classList.contains("column")) {
+                if (lastCard && elemBelow.classList[1]==lastCard.parentElement.classList[1]){
+                    lastCard.parentElement.insertBefore(card, lastCard);
+                    card.style.marginTop = '20px';
+                    lastCard.style.marginTop = '20px';
+                    this.saveState();
+                    this.cleanState();
+                    return;
+                }
+                e.target.append(card);
+            }
+            this.saveState();
+            this.cleanState();
         });
-      });
-    });
-  }
-  operationsTask();
-  dragNdrop();
-}
+        
 
-window.addEventListener('beforeunload', () => {
-  const data = {
-    todo: [],
-    inProgress: [],
-    done: [],
-  };
-  const boardTodo = document.querySelector('.todo');
-  const boardInprogress = document.querySelector('.inprogress');
-  const boardDone = document.querySelector('.done');
+    }
 
-  const cardsTodo = Array.from(boardTodo.querySelectorAll('.list__item-text'));
-  if (cardsTodo) {
-    cardsTodo.forEach((item) => {
-      data.todo.push(item.textContent);
-    });
-  }
+    listener(){
+        this.drag();
+        document.addEventListener('click',(e)=>{
+            if(e.target.className == 'footer'){
+                this.table[e.target.parentElement.classList[1]].showAddBlock()
+            };
+            if(e.target.className == 'cross'){
+                const parent = e.target.parentElement.parentElement.classList[1];
+                this.table[parent].delCard(e.target.parentElement)
+            };
+        });
+        document.addEventListener("mouseover", (e)=>{  
+            if(e.target.classList[0] =='card'){ 
+                let cross = e.target.querySelector('.cross')
+                cross.classList.remove('fog');
+                cross ='';
+            };
+        });
+        document.addEventListener("mouseout", (e)=>{
+            if(e.target.classList[0] =='card'){
+                let cross = e.target.querySelector('.cross')
+                setTimeout(()=>{
+                    cross.classList.add('fog');
+                    cross ='';
+                }, 1200);
+           };
+        });
 
-  const cardsInprogress = Array.from(boardInprogress.querySelectorAll('.list__item-text'));
-  if (cardsInprogress) {
-    cardsInprogress.forEach((item) => {
-      data.inProgress.push(item.textContent);
-    });
-  }
+    };
 
-  const cardsDone = Array.from(boardDone.querySelectorAll('.list__item-text'));
-  if (cardsDone) {
-    cardsDone.forEach((item) => {
-      data.done.push(item.textContent);
-    });
-  }
+    localStateRead(){
+        if(localStorage.length == 0){
+           return
+        } else {
+            for (let key in localStorage){
+                if(localStorage.getItem(key) != null){
+                    this.restoreState(key,localStorage.getItem(key))
+                }
+            }
+        }
+    };
 
-  localStorage.setItem('data', JSON.stringify(data));
-});
+    restoreState(key,value){
+        const values = JSON.parse(value)
+        for (let jkey in values){
+            this.table[key].createCard(jkey, values[jkey])
+        }
+    };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const json = localStorage.getItem('data');
-  const boardTodo = document.querySelector('.todo');
-  const boardInprogress = document.querySelector('.inprogress');
-  const boardDone = document.querySelector('.done');
+    cleanState(){
+        const allCards = document.querySelectorAll('.card');
+        for (let card of allCards){
+            card.remove()
+        };
+        this.localStateRead()
+    };
 
-  let formData;
+    saveState(){
+        for (let column of Object.keys(this.table)){
+            this.table[column].saveState();
+        };
+    };
 
-  try {
-    formData = JSON.parse(json);
-  } catch (error) {
-    console.log(error);
-  }
-  if (formData) {
-    const val = formData.todo;
-    val.forEach((el) => {
-      const item = document.createElement('div');
-      item.classList.add('list__item');
-      item.draggable = true;
-      item.innerHTML = `
-                <span class="list__item-text">${el}</span>
-                    <span class="change">✎</span>
-                    <span class="save">✔</span>
-                    <span class="delete">✖</span>
-                </div>`;
-      boardTodo.querySelector('.list').append(item);
-    });
-
-    const val2 = formData.inProgress;
-    val2.forEach((el) => {
-      const item = document.createElement('div');
-      item.classList.add('list__item');
-      item.draggable = true;
-      item.innerHTML = `
-            <span class="list__item-text">${el}</span>
-            <span class="change">✎</span>
-            <span class="save">✔</span>
-            <span class="delete">✖</span>
-            </div>`;
-      boardInprogress.querySelector('.list').append(item);
-    });
-
-    const val3 = formData.inProgress;
-    val3.forEach((el) => {
-      const item = document.createElement('div');
-      item.classList.add('list__item');
-      item.draggable = true;
-      item.innerHTML = `
-            <span class="list__item-text">${el}</span>
-            <span class="change">✎</span>
-            <span class="save">✔</span>
-            <span class="delete">✖</span>
-            </div>`;
-      boardDone.querySelector('.list').append(item);
-    });
-    boardTodo.querySelector('.delete').addEventListener('click', (e) => {
-      e.target.parentElement.remove();
-    });
-    // dragNdrop();
-    // clearForm();
-    // operationsTask();
-  }
-});
-// localStorage.removeItem(data);
+};
