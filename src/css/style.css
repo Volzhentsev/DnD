@@ -1,125 +1,142 @@
-.table{
+body {
+   margin: 0;
+   padding: 10px;
+   background-color: rgb(248, 240, 172);
+}
+
+.board-wrapper {
    display: flex;
+   min-height: 100%;
+   padding: 10px;
+   background-color: rgb(205, 242, 248);  
 }
 
-.column{
-   display: inline-block;
-   border: 1px solid;
-   width: 300px;
-   min-height: 500px;
-   margin-top: 0;
-   margin-left: 15px;
-   background-color: #ced0a6;
-   border-radius: 5px;
-   position:relative;
-   padding-bottom:50px;
-}
-
-.head{
-   box-sizing: border-box;
+.panel {
+   height: min-content;
    width: 100%;
-   padding-left: 10%;
-   padding-top: 5%;
-   font-family: 'Arial', 'sans-serif';
+   padding: 10px;
+   border-radius: 15px;
+   background-color: rgb(255, 255, 255);
+   overflow-wrap: anywhere;
+}
+
+.panel-left {
+   margin-left: auto;  
+}
+
+.panel-center {
+   margin: 0 10px;  
+}
+
+.panel-right {
+   margin-right: auto;  
+}
+
+.panel-header {
    font-weight: 700;
 }
 
-.footer{
-   padding-bottom: 5px;
-   padding-left: 5px;
-   position:absolute;
-   bottom:0;
-   cursor: pointer;
+.items {
+   list-style-type: none;
+   padding-left: 0;
 }
 
-.card{
-   z-index: 1;
-   display: flex;
-   flex-wrap: wrap;
-   box-sizing: border-box;
-   position:relative;
-   width: 90%;
-   border: 1px solid;
-   margin-top: 20px;
-   margin-left: 5px;
-   min-height: 70px;
-   border-radius: 5px;
-   background-color: #6195d565;
-   padding-left: 5px;
-   padding-top: 5px;
-   box-shadow: 4px 5px 0px 0px rgb(105, 105, 105);
+.items-task {
+   display: flex; 
+   justify-content: space-between;      
+   border: 1px solid #404040;
+   border-radius: 5px;    
+   background-color: rgb(255, 255, 255);
+   padding: 10px;
+   margin-top: 10px;
+   margin-bottom: -1px;
    cursor: grab;
+   cursor: -moz-grab;
+   cursor: -webkit-grab;
 }
 
-
-
-.card:active{
-   cursor: grabbing;
+.items-task:first-child {
+   margin-top: 0;
 }
 
-.cross{
-   box-sizing: border-box;
-   position:absolute;
-   right:0;
-   top: 0;
-   cursor: pointer;
-   width: 18px;
-   background-color: rgb(216, 216, 226);
-   border-radius: 5px;
-   text-align: center;
-}
-
-.add_card{
-   z-index: 999;
-   width: 90%;
-   display: inline-block;
-   position:absolute;
-   bottom:0;
-}
-
-.card_text{
-   
-   border: none;
-   width: 100%;
-   min-height: 70px;
-   margin-bottom: 10px;
-   margin-left: 5%;
-   border-radius: 5px;
-   padding-top: 0px;
-   box-sizing: border-box;
-
-
-}
-
-.button_block{
-   display: flex;
-}
-
-.add_btn{
-   background-color: rgb(6, 71, 6);
-   border: none;
-   margin-left: 10px;
-   margin-bottom: 7px;
-   height: 30px;
-   border-radius: 5px;
-}
-
-.add_btn:active{
-   border: 2px solid;
-}
-
-.add_cross{
-   padding-left: 10px;
-   padding-top: 1%;
-   cursor: pointer;
-}
-
-
-
-.fog{
-   display: none;
-}
-
-.dragged{
+.items-task.dragged {  
+   width: calc(30% - 10px);
    position: absolute;
+   z-index: 13;
+   background-color: rgb(255, 255, 255);
+   border: 1px solid #999;
+   cursor: grabbing;
+   cursor: -moz-grabbing;
+   cursor: -webkit-grabbing;
+   opacity: 0.7;
+   overflow-wrap: anywhere;
+}
+
+.items-task.droppable {
+   background-color: rgb(155, 193, 207);
+   color: rgb(155, 193, 207);
+}
+
+.item-remove {
+   margin-left: 5px;
+   font-size: 1rem; 
+   font-weight: 700;
+}
+
+.item-remove:hover {
+   color: rgb(226, 99, 77);
+   cursor: pointer;
+}
+
+.add-tasks-item {
+   color: rgb(1, 97, 134);
+}
+
+.add-tasks-item:hover {
+   color: white;
+   cursor: pointer;
+}
+
+.add-tasks-input{
+   resize: none;
+   width: 100%;
+   padding: 0;
+   margin: 0; 
+   border-radius: 10px; 
+}
+
+.add-tasks-buttons {
+   display: flex;
+   margin-top: 5px;
+   align-items: center;
+}
+
+.add-tasks-submit { 
+   background-color: rgb(113, 192, 97);
+   border: 1px solid rgb(113, 192, 97);   
+   border-radius: 4px;
+   padding: 10px;
+   margin-right: 10px; 
+   font-weight: 700;   
+}
+
+.add-tasks-submit:hover {
+   cursor: pointer;
+   background-color: rgb(36, 196, 4);
+   border-color: rgb(36, 196, 4);    
+   color: white;
+}
+
+.add-tasks-cancel {
+   font-size: 1.5rem; 
+   font-weight: 700;   
+}
+
+.add-tasks-cancel:hover {
+   cursor: pointer;    
+   color: tomato;
+}
+
+.hidden {
+   display: none;
 }
